@@ -1,0 +1,19 @@
+dist: trusty
+language: java
+sudo: false
+
+install:
+  - true
+
+env:
+  - MAVEN_OPTS="-Xms256m -Xmx1024m -XX:MaxPermSize=512m -Djava.awt.headless=true"
+
+before_script:
+  # Add an IPv6 config - see the corresponding Travis issue
+  # https://github.com/travis-ci/travis-ci/issues/8361
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
+      sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6';
+    fi
+
+script:
+  - mvn -B install
