@@ -1,0 +1,12 @@
+dist: trusty
+language: java
+sudo: false
+
+install:
+  - true
+
+env:
+  - MAVEN_OPTS="-Xms256m -Xmx1024m -XX:MaxPermSize=512m -Djava.awt.headless=true"
+
+script:
+  - mvn -B install
