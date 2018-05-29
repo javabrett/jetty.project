@@ -20,7 +20,7 @@ def getFullBuild(jdk, os) {
       def mvnName = 'maven3.5'
       def localRepo = "${env.JENKINS_HOME}/${env.EXECUTOR_NUMBER}" // ".repository" // 
       def settingsName = 'oss-settings.xml'
-      def extraMvnCli = '-Pno-logger-debug -U'
+      def extraMvnCli = getExtraMvnCli();
 
       // Environment
       List mvnEnv = ["PATH+MVN=${mvntool}/bin", "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}/", "MAVEN_HOME=${mvntool}"]
@@ -163,6 +163,16 @@ def isActiveBranch()
   def branchName = "${env.BRANCH_NAME}"
   return ( branchName == "master" ||
           ( branchName.startsWith("jetty-") && branchName.endsWith(".x") ) );
+}
+
+def getExtraMvnCli()
+{
+  def branchName = "${env.BRANCH_NAME}"
+  if(branchName == "experiment/no_logging")
+  {
+    return '-Pno-logger-debug -U';
+  }
+  return ""
 }
 
 // Test if the Jenkins Pipeline or Step has marked the
