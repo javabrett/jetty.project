@@ -9,4 +9,7 @@ env:
   - MAVEN_OPTS="-Xms256m -Xmx1024m -XX:MaxPermSize=512m -Djava.awt.headless=true"
 
 script:
-  - mvn -B install
+  - |
+    mvn -B install -DskipTests=true
+    cd jetty-security
+    mvn test
