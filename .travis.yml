@@ -16,4 +16,7 @@ before_script:
     fi
 
 script:
-  - mvn -B install
+  - |
+    mvn -B install -DskipTests=true
+    cd jetty-security
+    mvn test
